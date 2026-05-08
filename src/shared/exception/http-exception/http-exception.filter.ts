@@ -21,6 +21,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       (exception as Error).stack,
     );
 
+
+    
     response.status(status).json({
       success: false,
 

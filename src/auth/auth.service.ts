@@ -32,7 +32,7 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const access_token = await this.jwtService.generateToken(payload);
 
-    return { message: 'User can be created', user, access_token };
+    return { message: 'User created successfully', data:{user, access_token} };
   }
 
   async login(loginDto: LoginDto) {
@@ -53,8 +53,7 @@ export class AuthService {
     const access_token = await this.jwtService.generateToken(payload);
     return {
       message: 'login success',
-      user,
-      access_token,
+      data: { user, access_token },
     };
   }
 }
