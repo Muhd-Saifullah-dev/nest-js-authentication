@@ -17,7 +17,7 @@ export class UserService {
       data: {
         email: registerDto.email,
         password: registerDto.password,
-        name: registerDto.password,
+        name: registerDto.name,
       },
     });
   }
