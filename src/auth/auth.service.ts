@@ -2,7 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  Post,
+  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
@@ -32,7 +32,10 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const access_token = await this.jwtService.generateToken(payload);
 
-    return { message: 'User created successfully', data:{user, access_token} };
+    return {
+      message: 'User created successfully',
+      data: { user, access_token },
+    };
   }
 
   async login(loginDto: LoginDto) {
@@ -55,5 +58,13 @@ export class AuthService {
       message: 'login success',
       data: { user, access_token },
     };
+  }
+
+  async get_profile(userId: number) {
+    const user = await this.userService.getUserById(userId);
+    if(!user){
+      throw new UnauthorizedException("user not found")
+    }
+    return { message: 'user fetched successfully', data: { user } };
   }
 }

@@ -22,7 +22,7 @@ export class TransformInterceptor implements NestInterceptor {
           `[ ${request.url}]  ${request.method} -- ${statusCode} --[${JSON.stringify(request.body)}]`,
         );
         let data = response_data.data || response_data;
-        
+
         if (data.user?.password) {
           const { password, ...rest } = data.user;
           data = {
@@ -32,7 +32,7 @@ export class TransformInterceptor implements NestInterceptor {
         }
         return {
           code: statusCode,
-          message: data.message || 'success',
+          message: response_data.message || 'success',
           data,
         };
       }),
